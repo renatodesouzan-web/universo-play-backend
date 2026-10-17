@@ -9,18 +9,19 @@ const WMANAGE_BASE_URL = 'https://painel.wmanage.com.br/api/v1';
 app.post('/api/criar-cliente', async (req, res) => {
    try {
        const dadosCliente = req.body;
-       const response = await axios.post(`${WMANAGE_BASE_URL}/clients`, dadosCliente, {
+       const resposta = await axios.post(`${WMANAGE_BASE_URL}/clientes`, dadosCliente, {
            headers: {
                'Authorization': `Bearer ${WMANAGE_API_KEY}`,
                'Content-Type': 'application/json'
            }
        });
-       res.json({ success: true, data: response.data });
-   } catch (error) {
-       res.status(500).json({ success: false, error: error.response?.data || error.message });
+       res.status(200).json(resposta.data);
+   } catch (erro) {
+       console.error('Erro detalhado:', erro.response ? erro.response.data : erro.message);
+       res.status(500).json({ erro: 'Erro ao comunicar com a API do WManage', detalhes: erro.response ? erro.response.data : erro.message });
    }
 });
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
    console.log(`Servidor a correr na porta ${PORT}`);
 });
