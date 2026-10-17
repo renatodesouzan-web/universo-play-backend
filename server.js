@@ -5,10 +5,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 const WMANAGE_API_KEY = 'wz_faca089a351518dc9ca2d72c592acc7e';
-const WMANAGE_BASE_URL = 'https://painel.wmanage.com.br/api/v1';
+const WMANAGE_BASE_URL = 'https://wmanage.link/api/v1';
 app.post('/api/criar-cliente', async (req, res) => {
    try {
        const dadosCliente = req.body;
+       console.log('Dados recebidos do site:', dadosCliente);
        const resposta = await axios.post(`${WMANAGE_BASE_URL}/clientes`, dadosCliente, {
            headers: {
                'Authorization': `Bearer ${WMANAGE_API_KEY}`,
